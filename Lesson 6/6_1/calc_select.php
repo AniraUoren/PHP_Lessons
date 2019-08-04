@@ -12,6 +12,9 @@ switch ($act){
     {
         $buffer = $firstNumber + $secondNumber;
         $fo = fopen("result.txt", "w+");
+        if ($firstNumber == 0 && $secondNumber == 0){
+            file_put_contents("result.txt", "Error");
+        }
         file_put_contents("result.txt", $buffer);
         fclose($fo);
         break;

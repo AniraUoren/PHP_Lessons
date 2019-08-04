@@ -24,15 +24,17 @@
         let submit = document.getElementById("submit");
         let obj = {};
 
-        obj.firstNumber = document.getElementById("firstNumber").value;
-        obj.secondNumber = document.getElementById("secondNumber").value;
-        obj.calc = document.getElementById("calc_operation").value;
-
-        let JSONObj = JSON.stringify(obj);
-
-
         submit.addEventListener("click", (el) => {
             el.preventDefault();
+
+            obj.firstNumber = document.getElementById("firstNumber").value;
+            obj.secondNumber = document.getElementById("secondNumber").value;
+            obj.calc = document.getElementById("calc_operation").value;
+
+            let JSONObj = JSON.stringify(obj);
+
+            console.log(JSONObj);
+            console.log(obj);
 
             fetch("calc_select.php", {
                 method: 'POST',
