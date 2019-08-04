@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор</title>
+</head>
+<body>
+    <h1>Калькулятор</h1>
+    <form action="calc_select.php" method="post" enctype="multipart/form-data" name="calc">
+        <input type="number" name="firstNumber" id="firstNumber">
+        <select name="calc" id="calc_operation">
+            <option value="addition">сложить</option>
+            <option value="subtraction">вычесть</option>
+            <option value="multiplication">умножить</option>
+            <option value="division">разделить</option>
+        </select>
+        <input type="number" name="secondNumber" id="secondNumber">
+        <button type="submit" id="submit">=</button>
+    </form>
+    <h3>Результат</h3>
+    <p id="result"></p>
+    <script>
+        let result = document.getElementById("result");
+        let submit = document.getElementById("submit");
+        let obj = {};
+
+        submit.addEventListener("click", (el) => {
+            el.preventDefault();
+
+            obj.firstNumber = document.getElementById("firstNumber").value;
+            obj.secondNumber = document.getElementById("secondNumber").value;
+            obj.calc = document.getElementById("calc_operation").value;
+
+            let JSONObj = JSON.stringify(obj);
+
+            console.log(JSONObj);
+            console.log(obj);
+
+            fetch("calc_select.php", {
+                method: 'POST',
+                body: JSONObj,
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            })
+                // .then((res) => {console.log(res)});
+
+            fetch("calc_select_asw.php")
+                .then((answer) => {
+                    // console.log(answer);
+                    return answer.json();
+                })
+                .then(data => {
+                    console.log(JSON.stringify(data));
+                    result.innerText = JSON.stringify(data);
+                });
+
+
+        });
+    </script>
+</body>
+</html>
